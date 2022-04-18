@@ -20,6 +20,7 @@
   "homepage": "https://github.com/LeonardoHsia/tianxia-feng.cn-server#readme",
   "dependencies": {
     "@types/node": "^15.12.2",
+    "axios": "^0.26.1",
     "express": "^4.17.3",
     "inquirer": "^8.2.2",
     "minimist": "^1.2.6",

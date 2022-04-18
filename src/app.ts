@@ -1,37 +1,47 @@
-import {IncomingMessage, ServerResponse} from 'http'
+import { IncomingMessage, ServerResponse } from "http";
+import { RequestOptions } from "https";
 
+// import testAxios from "./test/axios";
 
-const http = require('http')
-const ProgressBar = require('progress')
-const hostname = '127.0.0.1'
-const port = 3000
+// console.log(testAxios);
 
-const foo = 123;
-const bar = foo.toString()
+const https = require("http");
+const hostname = "127.0.0.1";
+const port = 3000;
 
-let libs = require('./library')
-
-const server = http.createServer((req:IncomingMessage, res:ServerResponse) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
-  res.end('Hello World')
-})
+const server = https.createServer(
+	(req: IncomingMessage, res: ServerResponse) => {
+		console.log(req.url);
+		res.statusCode = 200;
+		res.setHeader("Content-Type", "text/plain");
+		res.end("Hello World");
+	}
+);
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}`)
-  console.log(require('minimist')(process.argv.slice(2)))
-  doAfter()
-})
+	console.log(`Server running at http://${hostname}:${port}`);
+});
 
-function doAfter(){
-  
-  console.log(require('./utils/test').helloworld('Xiatian'))
+const options: RequestOptions = {
+	hostname,
+	port,
+	path: "/todos",
+	method: "GET",
+};
 
-    // let bar = new ProgressBar(':bar', {total: 20})
-    // const timer = setInterval(() => {
-    //   bar.tick()
-    //   if(bar.complete) {
-    //     clearInterval(timer)
-    //   }
-    // }, 100)
-}
+const req = https.request(
+	options,
+	(req: IncomingMessage, res: ServerResponse) => {
+		console.log("Incoming Request", req);
+
+		console.log("状态码：", res.statusCode);
+
+		res.on("data", d => {
+			process.stdout.write(d);
+		});
+	}
+);
+
+req.on("error", (error: Error) => {
+	console.error(error);
+});

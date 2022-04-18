@@ -1,0 +1,10 @@
+{
+    "name": "xiatian",
+    "hobits": [
+        "Study",
+        {
+            "name": "Learn",
+            "direction": "code"
+        }
+    ]
+}
