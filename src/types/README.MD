@@ -1,0 +1,1 @@
+# Typescript的类型声明文件(d.ts)

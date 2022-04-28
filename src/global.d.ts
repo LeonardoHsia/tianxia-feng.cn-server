@@ -1,1 +1,0 @@
-declare function helloworld(name:string): string;
