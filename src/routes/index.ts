@@ -1,8 +1,8 @@
-import express from 'express';
+import express, {Request, Response} from 'express';
 const router = express.Router()
 
 /* Index Route */
-router.get('/', (req, res, next) => {
+router.get(['/', '/index'], (req: Request, res: Response, next) => {
   res.send('Index Page')
 })
 

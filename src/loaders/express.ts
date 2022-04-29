@@ -9,7 +9,7 @@ import Logger from './logger';
 
 export default ({ app }: { app: express.Application }) => {
   // routes and middleware
-  app.use('/', indexRoute)
+  app.use('', indexRoute)
   app.use('/user', userRoute)
 
   /**
@@ -28,7 +28,11 @@ export default ({ app }: { app: express.Application }) => {
   app.use((err: HttpError | Error, req: any, res: any, next: Function) => {
     console.log('Error Happened')
     Logger.error(err)
-    res.status(err.statusCode || 500)
+    if(err instanceof HttpError) {
+      res.status(err.statusCode || 500)
+    } else if(err instanceof Error) {
+      res.status(500)
+    }
     res.render('error', {error: err})
   })
 }
